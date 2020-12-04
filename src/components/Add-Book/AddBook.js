@@ -14,6 +14,12 @@ const AddBook = () => {
     handler(e.target.value);
   };
 
+  const clearState = () => {
+    setBookName("");
+    setGenre("");
+    setAuthor("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     addBook({
@@ -24,6 +30,7 @@ const AddBook = () => {
       },
       refetchQueries: [{ query: GET_BOOKS }],
     });
+    clearState();
   };
 
   return (
