@@ -6,8 +6,6 @@ const AddBook = () => {
   const { loading: authorsLoading, data: authors } = useQuery(GET_AUTHORS);
   const [addBook] = useMutation(ADD_BOOK);
 
-  console.log(authors);
-
   const [bookName, setBookName] = useState("");
   const [genre, setGenre] = useState("");
   const [author, setAuthor] = useState("");
@@ -16,15 +14,8 @@ const AddBook = () => {
     handler(e.target.value);
   };
 
-  const bookData = {
-    name: bookName,
-    genre,
-    authorId: author,
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(bookData);
     addBook({
       variables: {
         name: bookName,
@@ -36,8 +27,8 @@ const AddBook = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} id="add-book">
+      <div className="field">
         <label>Book name:</label>
         <input
           value={bookName}
@@ -45,12 +36,12 @@ const AddBook = () => {
         />
       </div>
 
-      <div>
+      <div className="field">
         <label>Genre:</label>
         <input value={genre} onChange={(e) => handleChange(e, setGenre)} />
       </div>
 
-      <div>
+      <div className="field">
         <label>Author:</label>
         <select value={author} onChange={(e) => handleChange(e, setAuthor)}>
           <option>Select Author</option>
