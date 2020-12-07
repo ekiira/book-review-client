@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import BookList from "./components/Book-List/BookList";
 
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
@@ -14,12 +14,19 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <div id="main">
-       <h1>
+      <div className="main-wrapper">
+      <div>
+
+      <h1 className="title">
        Jay's Reading List
        </h1>
+ 
+       <div className="main">
+       
         <BookList />
-        <AddBook />
+        {/* <AddBook /> */}
+       </div>
+      </div>
       </div>
     </ApolloProvider>
   );

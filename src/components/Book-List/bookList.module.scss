@@ -1,0 +1,27 @@
+.books {
+  padding: 10px 20px;
+  height: 200px;
+  &_list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &_single {
+    padding-top: 10px;
+    margin-bottom: 5px;
+    position: relative;
+  }
+  &_image {
+    width: 300px;
+  }
+  &_name {
+    position: absolute;
+    top: 30px;
+    left: 100px;
+    font-size: 18px;
+  }
+}
+.paginationWrapper {
+  display: flex;
+  justify-content: flex-end;
+}

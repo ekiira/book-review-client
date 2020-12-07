@@ -1,0 +1,27 @@
+.MuiTablePagination-caption {
+    display: none !important;
+  }
+  
+  .MuiTablePagination-actions {
+    margin-bottom: 20px !important;
+    .MuiButtonBase-root {
+      background: #e6e6e6;
+      border-radius: 3px !important;
+      margin-left: 30px !important;
+      color: #a5aab5;
+  
+      &:hover {
+        outline: none;
+        background: #683ad1;
+        color: #ffffff;
+      }
+      &:focus {
+        outline: none;
+        background: #713ee5;
+        color: #ffffff;
+      }
+    }
+    .MuiIconButton-root {
+      padding: 5px !important;
+    }
+  }
