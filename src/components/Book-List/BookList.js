@@ -3,9 +3,11 @@ import { useQuery } from "@apollo/client";
 import { GET_BOOKS } from "../../queries/queries";
 import BookDetails from "../Book-Details/BookDetails";
 import TablePagination from "@material-ui/core/TablePagination";
-
+import Grid from "@material-ui/core/Grid";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import styles from "./bookList.module.scss";
-import '../custom.scss'
+import "../custom.scss";
 const BookList = () => {
   const { loading, data } = useQuery(GET_BOOKS);
   const [id, setId] = useState("");
@@ -15,7 +17,7 @@ const BookList = () => {
 
   const [page, setPage] = React.useState(1);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 3;
   const indexofLastPost = page * itemsPerPage;
   const indexofFirstPost = indexofLastPost - itemsPerPage;
   const currentPost = data
@@ -37,33 +39,15 @@ const BookList = () => {
     }
   }, [data]);
 
-  console.log('data', data)
+  console.log("data", data);
   return (
     <div className={styles.books}>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul className={styles.books_list}>
-          {currentPost.map(({ name, id, image }) => (
-            <li
-              key={id}
-              onClick={() => handleClick(id)}
-              className={styles.books_single}
-            >
-              <img src={image} alt="book" className={styles.books_image}/>
-              
-              <span className={styles.books_name}>
-                {name}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {/* <BookDetails 
-        id={id}
-        /> */}
-      <div className={styles.paginationWrapper}>
-        {/* <TablePagination
+        <>
+        <div className={styles.paginationWrapper}>
+        <TablePagination
           component="div"
           count={Number(pn)}
           page={page}
@@ -77,8 +61,31 @@ const BookList = () => {
             disableFocusRipple: true,
             disableRipple: true,
           }}
-        /> */}
+        />
       </div>
+        <Grid container spacing={2} className={styles.books_list}>
+          {currentPost.map(({ name, id, image, author }) => (
+            <Grid item xs={12} lg={4} key={id}>
+              <div
+                onClick={() => handleClick(id)}
+                className={styles.books_single}
+              >
+                <div className={styles.books_single_overlay}> </div>
+
+                <img src={image} alt="book" className={styles.books_image} />
+                <span className={styles.books_name}>{name}</span>
+
+                <span className={styles.books_author}>{author.name}</span>
+              </div>
+            </Grid>
+          ))}
+        </Grid>
+        </>
+      )}
+      {/* <BookDetails 
+        id={id}
+        /> */}
+ 
     </div>
   );
 };

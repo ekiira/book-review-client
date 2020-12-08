@@ -6,6 +6,10 @@ export const GET_BOOKS = gql`
       name
       id
       image
+      author {
+        id
+        name
+      }
     }
   }
 `;

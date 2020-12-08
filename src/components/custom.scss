@@ -8,17 +8,18 @@
       background: #e6e6e6;
       border-radius: 3px !important;
       margin-left: 30px !important;
-      color: #a5aab5;
+      color: #202124;
   
       &:hover {
         outline: none;
-        background: #683ad1;
-        color: #ffffff;
+        color: #f4f4f4;
+        background: #202124;
       }
       &:focus {
         outline: none;
-        background: #713ee5;
-        color: #ffffff;
+        color: #f4f4f4;
+        background: #202124;
+       
       }
     }
     .MuiIconButton-root {
