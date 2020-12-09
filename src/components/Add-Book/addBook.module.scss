@@ -1,0 +1,40 @@
+.addBookWrapper {
+    width: 100%;
+   
+    margin-top: 10%;
+}
+
+.addBook {
+    width: 100%;
+}
+
+.inputLabel {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.inputContainer {
+    background-color: #f4f4f4;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333333;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.button {
+    background-color: #f4f4f4;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+.discardButton {
+    margin-right: 20px;
+}

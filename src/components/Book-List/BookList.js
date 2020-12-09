@@ -4,8 +4,6 @@ import { GET_BOOKS } from "../../queries/queries";
 import BookDetails from "../Book-Details/BookDetails";
 import TablePagination from "@material-ui/core/TablePagination";
 import Grid from "@material-ui/core/Grid";
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import styles from "./bookList.module.scss";
 import "../custom.scss";
 const BookList = () => {
@@ -39,19 +37,19 @@ const BookList = () => {
     }
   }, [data]);
 
-  console.log("data", data);
   return (
     <div className={styles.books}>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <div>
         <div className={styles.paginationWrapper}>
         <TablePagination
           component="div"
           count={Number(pn)}
           page={page}
           onChangePage={handlePageChange}
+          rowsPerPage={0}
           rowsPerPageOptions={[]}
           nextIconButtonProps={{
             disableFocusRipple: true,
@@ -80,7 +78,7 @@ const BookList = () => {
             </Grid>
           ))}
         </Grid>
-        </>
+        </div>
       )}
       {/* <BookDetails 
         id={id}

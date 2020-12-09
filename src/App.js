@@ -39,11 +39,13 @@ const App = () => {
        </div>
       
       </div>
-     <div  className="add">
-     <Fab color="inherit" aria-label="add" onClick={onAddClick}>
-        <AddIcon />
-      </Fab>
-       </div>
+     {addBook ? null : (
+      <div  className="add">
+      <Fab color="inherit" aria-label="add" onClick={onAddClick}>
+         <AddIcon />
+       </Fab>
+        </div>
+     )}
       </div>
     </ApolloProvider>
   );

@@ -1,74 +1,140 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_AUTHORS, ADD_BOOK, GET_BOOKS } from "../../queries/queries";
 
-const AddBook = ({setAddBook}) => {
+import { useForm, Controller } from "react-hook-form";
+
+import InputBase from "@material-ui/core/InputBase";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "react-select";
+import styles from "./addBook.module.scss";
+
+const customStyles = {
+  option: (provided,state) => ({
+      ...provided,
+      color: state.isSelected ? '#333333' : state.isFocused ? '#333333' : '#333333',
+      backgroundColor: state.isFocused ? '#cec3c3': 'white' ,
+      padding: 20,
+  }),
+  control: (base,state) => ({
+      ...base,
+      borderRadius: state.isFocused ? '5px' : '5px',
+      padding: '9px',
+      fontSize: '16px'
+  }),
+}
+
+const AddBook = ({ setAddBook }) => {
+  const { register, handleSubmit, control } = useForm();
+
   const { loading: authorsLoading, data: authors } = useQuery(GET_AUTHORS);
+
   const [addBook] = useMutation(ADD_BOOK);
 
-  const [bookName, setBookName] = useState("");
-  const [genre, setGenre] = useState("");
-  const [author, setAuthor] = useState("");
-
-  const handleChange = (e, handler) => {
-    handler(e.target.value);
-  };
-
-  const clearState = () => {
-    setBookName("");
-    setGenre("");
-    setAuthor("");
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // addBook({
-    //   variables: {
-    //     name: bookName,
-    //     genre,
-    //     authorId: author,
-    //   },
-    //   refetchQueries: [{ query: GET_BOOKS }],
-    // });
-    setAddBook(false)
-    // clearState();
+  const onFormSubmit = (data) => {
+    console.log(data);
+    addBook({
+      variables: {
+        name: data.name,
+        genre: data.genre,
+        authorId: data.authorId.value,
+        image: data.image,
+      },
+      awaitRefetchQueries: true,
+      refetchQueries: [{ query: GET_BOOKS }],
+    });
+    setAddBook(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} id="add-book">
-      <div className="field">
-        <label>Book name:</label>
-        <input
-          value={bookName}
-          onChange={(e) => handleChange(e, setBookName)}
-        />
-      </div>
+    <div className={styles.addBookWrapper}>
+    <div>
+    <h3>Add a Book</h3>
+{!authorsLoading ? (
+  <form onSubmit={handleSubmit(onFormSubmit)} className={styles.addBook}>
+    <div className="field">
+      <InputLabel className={styles.inputLabel}>
+        Book name <span className={styles.asterik}>*</span>
+      </InputLabel>
+      <InputBase
+        fullWidth
+        name="name"
+        inputRef={register({ required: true })}
+        className={styles.inputContainer}
+      />
+    </div>
 
-      <div className="field">
-        <label>Genre:</label>
-        <input value={genre} onChange={(e) => handleChange(e, setGenre)} />
-      </div>
+    <div className="field">
+      <InputLabel className={styles.inputLabel}>
+        Genre <span className={styles.asterik}>*</span>
+      </InputLabel>
+      <InputBase
+        fullWidth
+        inputRef={register({ required: true })}
+        name="genre"
+        className={styles.inputContainer}
+      />
+    </div>
 
-      <div className="field">
-        <label>Author:</label>
-        <select value={author} onChange={(e) => handleChange(e, setAuthor)}>
-          <option>Select Author</option>
-          {authorsLoading ? (
-            <option>Select Author</option>
-          ) : (
-            authors.authors.map(({ name, id }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))
-          )}
-        </select>
-      </div>
+    <div className="field">
+      <InputLabel className={styles.inputLabel}>
+        Image <span className={styles.asterik}>*</span>
+      </InputLabel>
+      <InputBase
+        fullWidth
+        inputRef={register({ required: true })}
+        name="image"
+        className={styles.inputContainer}
+      />
+    </div>
 
-      <button onClick={handleSubmit} type="submit">
-        +
-      </button>
-    </form>
+    <div className="field">
+      <InputLabel className={styles.inputLabel}>
+        Author <span className={styles.asterik}>*</span>
+      </InputLabel>
+      <Controller
+        as={
+          <Select
+            name="authorId"
+            options={authors.authors.map(({ name, id }) => {
+              return {
+                value: id,
+                label: name,
+              };
+            })}
+            styles={customStyles}
+            components={{
+              IndicatorSeparator: () => null,
+            }}
+            placeholder=""
+          />
+        }
+        name="authorId"
+        control={control}
+        inputRef={register({ required: true })}
+        defaultValue=""
+      />
+    </div>
+
+   <div className={styles.buttonWrapper}>
+   <button
+   className={`${styles.button} ${styles.discardButton}` }
+   type="button"
+ >
+   Discard
+ </button>
+   <button onClick={handleSubmit}
+   className={styles.button}
+   type="submit">
+   Add
+ </button>
+   </div>
+  </form>
+) : (
+  <p>Loading</p>
+)}
+    </div>
+    </div>
   );
 };
 
