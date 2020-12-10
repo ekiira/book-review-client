@@ -46,6 +46,10 @@ const AddBook = ({ setAddBook }) => {
     setAddBook(false);
   };
 
+  const onDiscard = () => {
+    setAddBook(false);
+  }
+
   return (
     <div className={styles.addBookWrapper}>
     <div>
@@ -119,6 +123,7 @@ const AddBook = ({ setAddBook }) => {
    <div className={styles.buttonWrapper}>
    <button
    className={`${styles.button} ${styles.discardButton}` }
+   onClick={onDiscard}
    type="button"
  >
    Discard

@@ -9,6 +9,8 @@ import "../custom.scss";
 const BookList = () => {
   const { loading, data } = useQuery(GET_BOOKS);
   const [id, setId] = useState("");
+  const [open, setOpen] = useState(false);
+
   const handleClick = (id) => {
     setId(id);
   };
@@ -37,6 +39,14 @@ const BookList = () => {
     }
   }, [data]);
 
+  const handleModalOpen = () => {
+    setOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className={styles.books}>
       {loading ? (
@@ -63,7 +73,7 @@ const BookList = () => {
       </div>
         <Grid container spacing={2} className={styles.books_list}>
           {currentPost.map(({ name, id, image, author }) => (
-            <Grid item xs={12} lg={4} key={id}>
+            <Grid item xs={12} lg={4} key={id} onClick={handleModalOpen}>
               <div
                 onClick={() => handleClick(id)}
                 className={styles.books_single}
@@ -80,9 +90,11 @@ const BookList = () => {
         </Grid>
         </div>
       )}
-      {/* <BookDetails 
+     <BookDetails 
         id={id}
-        /> */}
+        modalClose={handleModalClose}
+        openModal={open}
+       /> 
  
     </div>
   );
