@@ -6,6 +6,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import Grid from "@material-ui/core/Grid";
 import styles from "./bookList.module.scss";
 import "../custom.scss";
+import { Load } from "../Loader/Loader";
 const BookList = () => {
   const { loading, data } = useQuery(GET_BOOKS);
   const [id, setId] = useState("");
@@ -50,7 +51,7 @@ const BookList = () => {
   return (
     <div className={styles.books}>
       {loading ? (
-        <p>Loading...</p>
+       <Load />
       ) : (
         <div>
         <div className={styles.paginationWrapper}>

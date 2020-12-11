@@ -8,6 +8,7 @@ import InputBase from "@material-ui/core/InputBase";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "react-select";
 import styles from "./addBook.module.scss";
+import {Load } from "../Loader/Loader";
 
 const customStyles = {
   option: (provided,state) => ({
@@ -51,10 +52,12 @@ const AddBook = ({ setAddBook }) => {
   }
 
   return (
+    <div>
     <div className={styles.addBookWrapper}>
+{!authorsLoading ? (
+
     <div>
     <h3>Add a Book</h3>
-{!authorsLoading ? (
   <form onSubmit={handleSubmit(onFormSubmit)} className={styles.addBook}>
     <div className="field">
       <InputLabel className={styles.inputLabel}>
@@ -135,10 +138,13 @@ const AddBook = ({ setAddBook }) => {
  </button>
    </div>
   </form>
-) : (
-  <p>Loading</p>
-)}
+
     </div>
+    ) : (
+      <Load/>
+    )}
+    </div>
+
     </div>
   );
 };

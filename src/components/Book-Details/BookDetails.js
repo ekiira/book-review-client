@@ -4,8 +4,8 @@ import { GET_BOOK } from "../../queries/queries";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Backdrop from "@material-ui/core/Backdrop";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-
+import { makeStyles } from "@material-ui/core/styles";
+import {ModalLoader } from "../Loader/Loader"
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -72,7 +72,7 @@ const BookDetails = ({ id, openModal, modalClose }) => {
       <div className={classes.paper}>
       <div className="" id="book-details">
       {loading ? (
-        <p>Loading...</p>
+        <ModalLoader />
       ) : data ? (
         <div >
           <h2>{data.book.name}</h2>
