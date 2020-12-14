@@ -5,7 +5,8 @@ import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/core/styles";
-import {ModalLoader } from "../Loader/Loader"
+import { ModalLoader } from "../Loader/Loader";
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -19,6 +20,14 @@ const useStyles = makeStyles((theme) => ({
     width: "500px",
     paddingTop: "20px",
     paddingBottom: "20px",
+  },
+  mainText: {
+    fontSize: "20px",
+    fontWeight: 700,
+    textAlign: "center",
+  },
+  textBold: {
+    fontWeight: 600,
   },
   modalLabel: {
     fontFamily: "Poppins",
@@ -54,48 +63,52 @@ const BookDetails = ({ id, openModal, modalClose }) => {
     },
   });
 
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <Modal
-    aria-labelledby="confirmation-modal-title"
-    aria-describedby="confirmation-modal-description"
-    className={classes.modal}
-    open={openModal}
-    onClose={modalClose}
-    closeAfterTransition
-    BackdropComponent={Backdrop}
-    BackdropProps={{
-      timeout: 500,
-    }}
-  >
-    <Fade in={openModal}>
-      <div className={classes.paper}>
-      <div className="" id="book-details">
-      {loading ? (
-        <ModalLoader />
-      ) : data ? (
-        <div >
-          <h2>{data.book.name}</h2>
-          <p>{data.book.genre}</p>
-          <p>{data.book.author.name}</p>
-          <p>All books by the author:</p>
-          <ul className="other-books">
-            {data.book.author.books.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
+      aria-labelledby="confirmation-modal-title"
+      aria-describedby="confirmation-modal-description"
+      className={classes.modal}
+      open={openModal}
+      onClose={modalClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={openModal}>
+        <div className={classes.paper}>
+          <div className="" id="book-details">
+            {loading ? (
+              <ModalLoader />
+            ) : data ? (
+              <div>
+                <p className={classes.mainText}>{data.book.name}</p>
+                <p>
+                  <span className={classes.textBold}>Genre:</span>{" "}
+                  {data.book.genre}
+                </p>
+                <p>
+                  {" "}
+                  <span className={classes.textBold}>Author:</span>{" "}
+                  {data.book.author.name}
+                </p>
+                <p>All books by the author:</p>
+                <ul className="other-books">
+                  {data.book.author.books.map((item) => (
+                    <li key={item.id}>{item.name}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div>No book selected...</div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div>No book selected...</div>
-      )}
-    </div>
-  
-        </div>
-    </Fade>
-  </Modal>
-
-
-    );
+      </Fade>
+    </Modal>
+  );
 };
 
 export default BookDetails;

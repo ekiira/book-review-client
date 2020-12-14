@@ -51,52 +51,47 @@ const BookList = () => {
   return (
     <div className={styles.books}>
       {loading ? (
-       <Load />
+        <Load />
       ) : (
         <div>
-        <div className={styles.paginationWrapper}>
-        <TablePagination
-          component="div"
-          count={Number(pn)}
-          page={page}
-          onChangePage={handlePageChange}
-          rowsPerPage={0}
-          rowsPerPageOptions={[]}
-          nextIconButtonProps={{
-            disableFocusRipple: true,
-            disableRipple: true,
-          }}
-          backIconButtonProps={{
-            disableFocusRipple: true,
-            disableRipple: true,
-          }}
-        />
-      </div>
-        <Grid container spacing={2} className={styles.books_list}>
-          {currentPost.map(({ name, id, image, author }) => (
-            <Grid item xs={12} lg={4} key={id} onClick={handleModalOpen}>
-              <div
-                onClick={() => handleClick(id)}
-                className={styles.books_single}
-              >
-                <div className={styles.books_single_overlay}> </div>
+          <div className={styles.paginationWrapper}>
+            <TablePagination
+              component="div"
+              count={Number(pn)}
+              page={page}
+              onChangePage={handlePageChange}
+              rowsPerPage={0}
+              rowsPerPageOptions={[]}
+              nextIconButtonProps={{
+                disableFocusRipple: true,
+                disableRipple: true,
+              }}
+              backIconButtonProps={{
+                disableFocusRipple: true,
+                disableRipple: true,
+              }}
+            />
+          </div>
+          <Grid container spacing={2} className={styles.books_list}>
+            {currentPost.map(({ name, id, image, author }) => (
+              <Grid item xs={12} lg={4} key={id} onClick={handleModalOpen}>
+                <div
+                  onClick={() => handleClick(id)}
+                  className={styles.books_single}
+                >
+                  <div className={styles.books_single_overlay}> </div>
 
-                <img src={image} alt="book" className={styles.books_image} />
-                <span className={styles.books_name}>{name}</span>
+                  <img src={image} alt="book" className={styles.books_image} />
+                  <span className={styles.books_name}>{name}</span>
 
-                <span className={styles.books_author}>{author.name}</span>
-              </div>
-            </Grid>
-          ))}
-        </Grid>
+                  <span className={styles.books_author}>{author.name}</span>
+                </div>
+              </Grid>
+            ))}
+          </Grid>
         </div>
       )}
-     <BookDetails 
-        id={id}
-        modalClose={handleModalClose}
-        openModal={open}
-       /> 
- 
+      <BookDetails id={id} modalClose={handleModalClose} openModal={open} />
     </div>
   );
 };

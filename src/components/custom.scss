@@ -1,28 +1,27 @@
 .MuiTablePagination-caption {
-    display: none !important;
-  }
-  
-  .MuiTablePagination-actions {
-    margin-bottom: 20px !important;
-    .MuiButtonBase-root {
-      background: #e6e6e6;
-      border-radius: 3px !important;
-      margin-left: 30px !important;
-      color: #202124;
-  
-      &:hover {
-        outline: none;
-        color: #f4f4f4;
-        background: #202124;
-      }
-      &:focus {
-        outline: none;
-        color: #f4f4f4;
-        background: #202124;
-       
-      }
+  display: none !important;
+}
+
+.MuiTablePagination-actions {
+  margin-bottom: 20px !important;
+  .MuiButtonBase-root {
+    background: #e6e6e6;
+    border-radius: 3px !important;
+    margin-left: 30px !important;
+    color: #202124;
+
+    &:hover {
+      outline: none;
+      color: #f4f4f4;
+      background: #202124;
     }
-    .MuiIconButton-root {
-      padding: 5px !important;
+    &:focus {
+      outline: none;
+      color: #f4f4f4;
+      background: #202124;
     }
   }
+  .MuiIconButton-root {
+    padding: 5px !important;
+  }
+}
