@@ -6,9 +6,10 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import AddBook from "./components/Add-Book/AddBook";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+
 // apollo client setup
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://reading-list-server.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 
