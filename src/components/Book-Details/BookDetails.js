@@ -54,6 +54,13 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: "10px",
   },
+  closeBtnW: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  closeBtn: {
+    fontSize: "15px",
+  },
 }));
 
 const BookDetails = ({ id, openModal, modalClose }) => {
@@ -84,6 +91,11 @@ const BookDetails = ({ id, openModal, modalClose }) => {
               <ModalLoader />
             ) : data ? (
               <div>
+                <div className={classes.closeBtnW}>
+                  <button className={classes.closeBtn} onClick={modalClose}>
+                    X
+                  </button>
+                </div>
                 <p className={classes.mainText}>{data.book.name}</p>
                 <p>
                   <span className={classes.textBold}>Genre:</span>{" "}
