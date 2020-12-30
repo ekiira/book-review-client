@@ -128,7 +128,12 @@ const AddBook = ({ setAddBook }) => {
                   defaultValue=""
                 />
               </div>
-
+              <div>
+                <p>
+                  Plase note that all fields marked with an asterisk (*) are
+                  compulsory
+                </p>
+              </div>
               <div className={styles.buttonWrapper}>
                 <button
                   className={`${styles.button} ${styles.discardButton}`}
