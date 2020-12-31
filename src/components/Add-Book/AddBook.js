@@ -29,6 +29,14 @@ const customStyles = {
   }),
 };
 
+const genre = [
+  { value: "Fiction", label: "Fiction" },
+  { value: "Mystery", label: "Mystery" },
+  { value: "Adventure", label: "Adventure" },
+  { value: "Horror", label: "Horror" },
+  { value: "Thriller", label: "Thriller" },
+];
+
 const AddBook = ({ setAddBook }) => {
   const { register, handleSubmit, control } = useForm();
 
@@ -41,7 +49,7 @@ const AddBook = ({ setAddBook }) => {
     addBook({
       variables: {
         name: data.name,
-        genre: data.genre,
+        genre: data.genre.value,
         authorId: data.authorId.value,
         image: data.image,
       },
@@ -81,11 +89,22 @@ const AddBook = ({ setAddBook }) => {
                 <InputLabel className={styles.inputLabel}>
                   Genre <span className={styles.asterik}>*</span>
                 </InputLabel>
-                <InputBase
-                  fullWidth
-                  inputRef={register({ required: true })}
+                <Controller
+                  as={
+                    <Select
+                      name="authorId"
+                      options={genre}
+                      styles={customStyles}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
+                      placeholder=""
+                    />
+                  }
                   name="genre"
-                  className={styles.inputContainer}
+                  control={control}
+                  inputRef={register({ required: true })}
+                  defaultValue=""
                 />
               </div>
 
