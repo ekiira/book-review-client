@@ -1,45 +1,94 @@
 .addBookWrapper {
-    width: 100%;
-   
-    margin-top: 10%;
+  width: 100%;
+
+  margin-top: 10%;
 }
 
 .addBook {
-    width: 100%;
+  width: 100%;
 }
 
 .inputLabel {
-    font-size: 14px;
-    margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .inputContainer {
-    background-color: #f4f4f4;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 16px;
-    color: #333333;
+  background-color: #f4f4f4;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  color: #333333;
 }
 
 .buttonWrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
 }
 
 .button {
-    background-color: #f4f4f4;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 18px;
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
 }
 
 .discardButton {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .asterik {
-    color: red;
+  color: red;
+}
+
+.file {
+  position: relative;
+  width: 100%;
+}
+
+.inputFile {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  padding: 15px 0 15px 0;
+  font-size: 16px;
+  background: #ffffff;
+  position: relative;
+  width: 100%;
+  color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-file-upload-button {
+    visibility: hidden !important;
+  }
+
+  &::before {
+    content: "Choose Photo";
+    white-space: nowrap;
+    cursor: pointer;
+    color: #a5aab5;
+    background-color: #ffffff;
+    padding: 5px 8px;
+    -webkit-user-select: none;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+}
+
+.abb {
+  position: absolute;
+  color: #a5aab5;
+  padding: 10px;
+  top: 10%;
+  left: 40%;
+  text-overflow: ellipsis;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
 }

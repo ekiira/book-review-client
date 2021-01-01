@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_AUTHORS, ADD_BOOK, GET_BOOKS } from "../../queries/queries";
 
@@ -9,6 +9,16 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "react-select";
 import styles from "./addBook.module.scss";
 import { Load } from "../Loader/Loader";
+import { popWarningAlert } from "../Alert/notification";
+
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+// cloudinary details
+const url = process.env.REACT_APP_CLOUDINARY_URL;
+const preset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
 
 const customStyles = {
   option: (provided, state) => ({
@@ -26,6 +36,7 @@ const customStyles = {
     borderRadius: state.isFocused ? "5px" : "5px",
     padding: "9px",
     fontSize: "16px",
+    marginBottom: "20px",
   }),
 };
 
@@ -35,28 +46,66 @@ const genre = [
   { value: "Adventure", label: "Adventure" },
   { value: "Horror", label: "Horror" },
   { value: "Thriller", label: "Thriller" },
+  { value: "Comedy", label: "Comedy" },
+  { value: "Romance", label: "Romance" },
 ];
 
 const AddBook = ({ setAddBook }) => {
   const { register, handleSubmit, control } = useForm();
-
+  const [image, setImage] = useState("");
   const { loading: authorsLoading, data: authors } = useQuery(GET_AUTHORS);
 
   const [addBook] = useMutation(ADD_BOOK);
 
+  const onFileChange = (e) => {
+    // CLOUDINARY UPLOAD
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", preset);
+
+    axios
+      .post(url, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+      .then((formDatum) => {
+        setImage(formDatum.data.url);
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
+
   const onFormSubmit = (data) => {
-    console.log(data);
-    addBook({
-      variables: {
-        name: data.name,
-        genre: data.genre.value,
-        authorId: data.authorId.value,
-        image: data.image,
-      },
-      awaitRefetchQueries: true,
-      refetchQueries: [{ query: GET_BOOKS }],
-    });
-    setAddBook(false);
+    const newData = { ...data, image };
+
+    switch (true) {
+      case !newData.name:
+        popWarningAlert("Please enter a name");
+        break;
+      case !newData.genre.value:
+        popWarningAlert("Please select a genre");
+        break;
+      case !newData.image:
+        popWarningAlert("Please choose a photo");
+        break;
+      case !newData.authorId:
+        popWarningAlert("Please select an author");
+        break;
+      default:
+        addBook({
+          variables: {
+            name: newData.name,
+            genre: newData.genre.value,
+            authorId: newData.authorId.value,
+            image: newData.image,
+          },
+          awaitRefetchQueries: true,
+          refetchQueries: [{ query: GET_BOOKS }],
+        });
+        setAddBook(false);
+        break;
+    }
   };
 
   const onDiscard = () => {
@@ -92,7 +141,7 @@ const AddBook = ({ setAddBook }) => {
                 <Controller
                   as={
                     <Select
-                      name="authorId"
+                      name="genre"
                       options={genre}
                       styles={customStyles}
                       components={{
@@ -112,12 +161,19 @@ const AddBook = ({ setAddBook }) => {
                 <InputLabel className={styles.inputLabel}>
                   Image <span className={styles.asterik}>*</span>
                 </InputLabel>
-                <InputBase
-                  fullWidth
-                  inputRef={register({ required: true })}
-                  name="image"
-                  className={styles.inputContainer}
-                />
+                <div className={styles.file}>
+                  <input
+                    id="passport"
+                    type="file"
+                    name="image"
+                    onChange={onFileChange}
+                    accept="image/png, image/jpeg"
+                    className={styles.inputFile}
+                  />
+                  <span className={styles.abb}>
+                    {image ? image : "No photo Chosen"}
+                  </span>
+                </div>
               </div>
 
               <div className="field">
@@ -149,7 +205,7 @@ const AddBook = ({ setAddBook }) => {
               </div>
               <div>
                 <p>
-                  Plase note that all fields marked with an asterisk (*) are
+                  Please note that all fields marked with an asterisk (*) are
                   compulsory
                 </p>
               </div>
