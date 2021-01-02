@@ -9,7 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "react-select";
 import styles from "./addBook.module.scss";
 import { Load } from "../Loader/Loader";
-import { popWarningAlert } from "../Alert/notification";
+import { popSuccessAlert, popWarningAlert } from "../Alert/notification";
 
 import axios from "axios";
 import dotenv from "dotenv";
@@ -103,6 +103,7 @@ const AddBook = ({ setAddBook }) => {
           awaitRefetchQueries: true,
           refetchQueries: [{ query: GET_BOOKS }],
         });
+        popSuccessAlert("Book added successfully")
         setAddBook(false);
         break;
     }
